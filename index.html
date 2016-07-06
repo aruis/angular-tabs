@@ -17,9 +17,14 @@
     <script>
 
         angular.module('app', ['tab.plus'])
+                .controller('ctrl2', function ($scope) {
+                    $scope.test = 'ddd'
+                })
                 .controller('ctrl', function ($scope) {
                     $scope.tabs = []
+                    $scope.scope = $scope
                     var i = 1;
+                    $scope.test = 'ddd'
 
                     $scope.addTab = function () {
 
@@ -28,8 +33,9 @@
                             title: '标题' + i,
                             id: i,
                             isTack: i > 1,
-                            templateUrl: 'grid-plus/template/locktab.html',
+                            templateUrl: 'tab-plus/template/locktab.html',
                             html: "                        <div class=\"panel-body\">\n" +
+                            "<h1 >{{test}}</h1>" +
                             "                            <strong>Thrid quam felis</strong>\n" +
                             "\n" +
                             "                            <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among\n" +
@@ -63,7 +69,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="tabs-container">
-                <tabset-plus tabs="tabs"></tabset-plus>
+                <tabset-plus tabs="tabs" scope="scope"></tabset-plus>
             </div>
         </div>
     </div>

@@ -50,17 +50,10 @@ angular.module('tab.plus', ['ui.bootstrap'])
         return {
             restrict: 'E',
             scope: {
-                tabs: '='
+                tabs: '=',
+                scope:'='
             },
             template: '<uib-tabset active="active" ng-show="tabs.length>0"></uib-tabset>',
-            controller: function ($scope) {
-                $scope.active = 0
-
-                $scope.closeTab = function () {
-                    alert('dd')
-                }
-            },
-            controllerAs: 'ctrl',
             link: function ($scope, element) {
                 var delIndex = 0
                 $scope.closeTab = function (index) {
@@ -94,7 +87,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
                         if (find == -1) {
                             isAdd = true
                             var templateUrl = tab.templateUrl
-                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope));
+                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope.scope));
                         }
                     })
                     if (isAdd) {
