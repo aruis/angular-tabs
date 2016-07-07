@@ -55,7 +55,6 @@ angular.module('tab.plus', ['ui.bootstrap'])
                 tabs: '=',
                 scope: '='
             },
-            require: 'tabsetPlus',
             template: '<uib-tabset active="active" ng-show="tabs.length>0"></uib-tabset>',
             controller: function ($scope) {
                 this.$scope = $scope
