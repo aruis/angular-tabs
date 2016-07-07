@@ -25,9 +25,6 @@
                     $scope.scope = $scope
                     var i = 1;
                     $scope.test = 'ddd'
-                    $scope.tabSelect = function (id) {
-                        console.log(id)
-                    }
 
                     $scope.addTab = function () {
 
@@ -51,9 +48,12 @@
                             "                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of\n" +
                             "                                drawing a single stroke at the present moment; and yet.</p>\n" +
                             "                        </div>",
-                            tackFunction: function (isTack) {
+                            tackFunction: function (isTack, data) {
                             },
-                            closeFunction: function () {
+                            closeFunction: function (data) {
+                            },
+                            selectFunction: function (data) {
+                                console.log(data)
                             }
                         })
 

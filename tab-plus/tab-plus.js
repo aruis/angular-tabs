@@ -20,11 +20,17 @@ angular.module('tab.plus', ['ui.bootstrap'])
                             break
                         }
                     }
+                    
+                    tabsetPlusCtrl.$scope.$watch('active', function (value) {
+                        if (value === $scope.index) {
+                            data.selectFunction(data)
+                        }
+                    })
                 })
 
                 $scope.tack = function () {
                     $scope.isTack = !$scope.isTack
-                    data.tackFunction($scope.isTack)
+                    data.tackFunction($scope.isTack, data)
                 }
 
                 $scope.closeTab = function () {
@@ -94,7 +100,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
                         if (find == -1) {
                             isAdd = true
                             var templateUrl = tab.templateUrl
-                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" select="tabSelect(' + tab.id + ')" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope.scope));
+                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope.scope));
                         }
                     })
                     if (isAdd) {
