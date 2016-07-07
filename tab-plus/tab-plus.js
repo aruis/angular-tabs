@@ -4,21 +4,23 @@
 angular.module('tab.plus', ['ui.bootstrap'])
     .directive('tabPlus', function ($timeout) {
         return {
-            require: '^uibTabset',
-            link: function ($scope, element, attrs, tabsetCtrl) {
+            require: ['^uibTabset', '^tabsetPlus'],
+            link: function ($scope, element, attrs, ctrls) {
 
                 var data
+
+                var tabsetCtrl = ctrls[0]
+                var tabsetPlusCtrl = ctrls[1]
 
                 $timeout(function () {
                     for (var i = 0; i < tabsetCtrl.tabs.length; i++) {
                         if (tabsetCtrl.tabs[i].tab == $scope) {
-                            data = $scope.$parent.tabs[i]
+                            data = tabsetPlusCtrl.tabs[i]
                             $scope.isTack = data.isTack
                             break
                         }
                     }
                 })
-
 
                 $scope.tack = function () {
                     $scope.isTack = !$scope.isTack
@@ -30,12 +32,12 @@ angular.module('tab.plus', ['ui.bootstrap'])
                     for (var i = 0; i < tabsetCtrl.tabs.length; i++) {
                         if (tabsetCtrl.tabs[i].tab == $scope) {
                             var isActive = $scope.active
-                            $scope.$parent.closeTab(i)
+                            tabsetPlusCtrl.$scope.closeTab(i)
                             $scope.$broadcast('$destroy')
                             if (isActive && tabsetCtrl.tabs.length > i)
                                 tabsetCtrl.select(i);
 
-                            data.closeFunction()
+                            data.closeFunction(data)
                             break
                         }
                     }
@@ -51,16 +53,22 @@ angular.module('tab.plus', ['ui.bootstrap'])
             restrict: 'E',
             scope: {
                 tabs: '=',
-                scope:'='
+                scope: '='
             },
+            require: 'tabsetPlus',
             template: '<uib-tabset active="active" ng-show="tabs.length>0"></uib-tabset>',
-            link: function ($scope, element) {
+            controller: function ($scope) {
+                this.$scope = $scope
+            },
+            link: function ($scope, element, attrs, ctrl) {
                 var delIndex = 0
                 $scope.closeTab = function (index) {
                     $scope.tabs.splice(index, 1)
                 }
 
                 $scope.$watchCollection('tabs', function (_new, _old) {
+
+                    ctrl.tabs = _new
 
                     var i = 0
 
@@ -87,7 +95,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
                         if (find == -1) {
                             isAdd = true
                             var templateUrl = tab.templateUrl
-                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope.scope));
+                            $(element).find('ul.nav.nav-tabs').append($compile('<uib-tab template-url="' + templateUrl + '" select="tabSelect(' + tab.id + ')" heading=\"' + tab.title + '\" >' + tab.html + '</uib-tab>')($scope.scope));
                         }
                     })
                     if (isAdd) {

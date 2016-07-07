@@ -25,6 +25,9 @@
                     $scope.scope = $scope
                     var i = 1;
                     $scope.test = 'ddd'
+                    $scope.tabSelect = function (id) {
+                        console.log(id)
+                    }
 
                     $scope.addTab = function () {
 
@@ -49,10 +52,8 @@
                             "                                drawing a single stroke at the present moment; and yet.</p>\n" +
                             "                        </div>",
                             tackFunction: function (isTack) {
-                                alert(isTack)
                             },
                             closeFunction: function () {
-                                alert('closed')
                             }
                         })
 
