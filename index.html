@@ -26,6 +26,10 @@
                     var i = 1;
                     $scope.test = 'ddd'
 
+                    $scope.delTab = function () {
+                        $scope.tabs.splice(0,1)
+                    }
+
                     $scope.addTab = function () {
 
 
@@ -33,6 +37,7 @@
                             title: '标题' + i,
                             id: i,
                             isTack: i > 1,
+                            isFixed: false,
                             templateUrl: 'tab-plus/template/locktab.html',
                             html: "                        <div class=\"panel-body\">\n" +
                             "<h1 >{{test}}</h1>" +
@@ -53,7 +58,7 @@
                             closeFunction: function (data) {
                             },
                             selectFunction: function (data) {
-                                console.log(data)
+//                                data.isFixed = false
                             }
                         })
 
@@ -66,6 +71,7 @@
 </head>
 <body ng-controller="ctrl">
 <input type="button" value="TEST" ng-click="addTab()">
+<input type="button" value="del" ng-click="delTab()">
 <div>
     <div class="row">
         <div class="col-md-6">

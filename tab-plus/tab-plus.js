@@ -16,16 +16,30 @@ angular.module('tab.plus', ['ui.bootstrap'])
                     for (var i = 0; i < tabsetCtrl.tabs.length; i++) {
                         if (tabsetCtrl.tabs[i].tab == $scope) {
                             data = tabsetPlusCtrl.tabs[i]
+                            $scope.data = data
                             $scope.isTack = data.isTack
+                            $scope.isFixed = data.isFixed
                             break
                         }
                     }
-                    
+
+                    data.$scope = $scope
+
                     tabsetPlusCtrl.$scope.$watch('active', function (value) {
                         if (value === $scope.index) {
                             data.selectFunction(data)
                         }
                     })
+
+                    $scope.$watch('data.isFixed', function (value) {
+                        $scope.isFixed = value
+                    })
+
+                    $scope.$watch('data.isTack', function (value) {
+                        $scope.isTack = value
+                    })
+
+
                 })
 
                 $scope.tack = function () {
@@ -33,12 +47,15 @@ angular.module('tab.plus', ['ui.bootstrap'])
                     data.tackFunction($scope.isTack, data)
                 }
 
-                $scope.closeTab = function () {
+                $scope.closeTab = function (auto) {
 
                     for (var i = 0; i < tabsetCtrl.tabs.length; i++) {
                         if (tabsetCtrl.tabs[i].tab == $scope) {
                             var isActive = $scope.active
-                            tabsetPlusCtrl.$scope.closeTab(i)
+
+                            if (!auto)
+                                tabsetPlusCtrl.$scope.closeTab(i)
+                            
                             $scope.$broadcast('$destroy')
                             if (isActive && tabsetCtrl.tabs.length > i)
                                 tabsetCtrl.select(i);
@@ -53,7 +70,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
             }
         }
     })
-    .directive('tabsetPlus', function ($timeout, $compile, $templateCache) {
+    .directive('tabsetPlus', function ($timeout, $compile) {
 
         return {
             restrict: 'E',
@@ -84,6 +101,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
 
                         if (ofind == -1) {
                             delIndex++
+                            otab.$scope.closeTab(true)
                             $(element).find('ul.nav.nav-tabs').children()[i].remove()
                         }
                         i++

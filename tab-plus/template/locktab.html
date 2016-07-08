@@ -1,8 +1,8 @@
 <li tab-plus ng-class="[{active: active, disabled: disabled}, classes]" class="uib-tab nav-item btn-group" uib-dropdown>
     <a href class="nav-link" ng-click="select($event)">
-        <i class='fa fa-thumb-tack' ng-show='isTack'></i>
+        <i class='fa fa-thumb-tack' ng-show='!isFixed && isTack'></i>
         {{heading}}
-        <i uib-dropdown-toggle>
+        <i uib-dropdown-toggle ng-show="!isFixed">
             <span class="caret"></span>
         </i></a>
     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
