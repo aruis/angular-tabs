@@ -39,6 +39,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
                         $scope.isTack = value
                     })
 
+                    $scope.btns = data.btns
 
                 })
 
@@ -55,7 +56,7 @@ angular.module('tab.plus', ['ui.bootstrap'])
 
                             if (!auto)
                                 tabsetPlusCtrl.$scope.closeTab(i)
-                            
+
                             $scope.$broadcast('$destroy')
                             if (isActive && tabsetCtrl.tabs.length > i)
                                 tabsetCtrl.select(i);

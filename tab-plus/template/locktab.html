@@ -6,7 +6,8 @@
             <span class="caret"></span>
         </i></a>
     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-        <li role="menuitem"><a href="#" ng-click='tack()'>{{isTack?'解锁':'锁定'}}</a></li>
-        <li role="menuitem" ng-show='!isTack'><a href="#" ng-click="closeTab()">关闭</a></li>
+        <li role="menuitem"><a ng-click='tack()'>{{isTack?'解锁':'锁定'}}</a></li>
+        <li role="menuitem" ng-show='!isTack'><a ng-click="closeTab()">关闭</a></li>
+        <li role="menuitem" ng-repeat="btn in btns"><a ng-click="btn.click(data)">{{btn.name}}</a></li>
     </ul>
 </li>

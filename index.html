@@ -27,7 +27,7 @@
                     $scope.test = 'ddd'
 
                     $scope.delTab = function () {
-                        $scope.tabs.splice(0,1)
+                        $scope.tabs.splice(0, 1)
                     }
 
                     $scope.addTab = function () {
@@ -59,7 +59,15 @@
                             },
                             selectFunction: function (data) {
 //                                data.isFixed = false
-                            }
+                            },
+                            btns: [
+                                {
+                                    name: '刷新',
+                                    click: function (data) {
+                                        console.log(data)
+                                    }
+                                }
+                            ]
                         })
 
                         i++
